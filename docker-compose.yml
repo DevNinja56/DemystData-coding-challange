@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  todo-cli:
+    build:
+      context: .
+    image: todo-cli:latest
+    entrypoint: ["node", "index.mjs"]
+    command: ["-n", "20", "-e"]
