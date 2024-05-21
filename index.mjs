@@ -1,6 +1,5 @@
 import axios from "axios";
 import { Command } from "commander";
-const program = new Command();
 
 export const fetchTodos = async (numTodos, onlyEven) => {
   const todos = [];
@@ -33,17 +32,25 @@ const printTodos = (todos) => {
   });
 };
 
-program
-  .version("1.0.0")
-  .description("CLI tool to fetch and display TODOs")
-  .option("-n, --num <number>", "number of TODOs to fetch", "20")
-  .option("-e, --even", "fetch only even numbered TODOs")
-  .action(async (options) => {
-    const numTodos = parseInt(options.num, 10);
-    const onlyEven = options.even || false;
+const runCLI = () => {
+  const program = new Command();
 
-    const todos = await fetchTodos(numTodos, onlyEven);
-    printTodos(todos);
-  });
+  program
+    .version("1.0.0")
+    .description("CLI tool to fetch and display TODOs")
+    .option("-n, --num <number>", "number of TODOs to fetch", "20")
+    .option("-e, --even", "fetch only even numbered TODOs")
+    .action(async (options) => {
+      const numTodos = parseInt(options.num, 10);
+      const onlyEven = options.even || false;
 
-program.parse(process.argv);
+      const todos = await fetchTodos(numTodos, onlyEven);
+      printTodos(todos);
+    });
+
+  program.parse(process.argv);
+};
+
+if (import.meta.url === `file://${process.argv[1]}`) {
+  runCLI();
+}
