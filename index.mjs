@@ -1,8 +1,8 @@
-const axios = require("axios");
-const { Command } = require("commander");
+import axios from "axios";
+import { Command } from "commander";
 const program = new Command();
 
-const fetchTodos = async (numTodos, onlyEven) => {
+export const fetchTodos = async (numTodos, onlyEven) => {
   const todos = [];
   const requests = [];
   const limit = onlyEven ? numTodos * 2 : numTodos;
